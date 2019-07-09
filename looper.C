@@ -35,7 +35,7 @@ void el_pt_looper()
                                     "ttbar background electron momentum",
                                     100, 20, 200);
   TH1D* ttbar_jets30_hist = new TH1D("ttbar_jets30", "ttbar amount of jets",
-                                     3, 3, 5);
+                                     8, 0, 32);
   TH1D* ttbar_MjjL_hist = new TH1D("ttbar_MjjL", "ttbar leading MjjL",
                                    100, 20, 500);
   TH1D* ttbar_met_pt_hist = new TH1D("ttbar_met_pt", "ttbar met momentum",
@@ -57,7 +57,7 @@ void el_pt_looper()
   ttbar_chain.SetBranchAddress("evt_scale1fb", &ttbar_evt_scale1fb,
                                &ttbar_evt_scale1fb_br);
 
-  vector<Float_t>* ttbar_jets30 = NULL;
+  vector<Int_t>* ttbar_jets30 = NULL;
   TBranch*         ttbar_jets30_br;
   ttbar_chain.SetBranchAddress("jets30_p4", &ttbar_jets30, &ttbar_jets30_br);
 
@@ -157,7 +157,7 @@ void el_pt_looper()
                                     "wz background electron momentum",
                                     100, 20, 200);
   TH1D* wz_jets30_hist = new TH1D("wz_jets30", "wz amount of jets",
-                                     3, 3, 5);
+                                     8, 0, 32);
   TH1D* wz_MjjL_hist = new TH1D("wz_MjjL", "wz leading MjjL",
                                    100, 20, 500);
   TH1D* wz_met_pt_hist = new TH1D("wz_met_pt", "wz met momentum",
@@ -183,7 +183,7 @@ void el_pt_looper()
   wz_chain.SetBranchAddress("evt_scale1fb", &wz_evt_scale1fb,
                                &wz_evt_scale1fb_br);
 
-  vector<Float_t>* wz_jets30 = NULL;
+  vector<Int_t>* wz_jets30 = NULL;
   TBranch*         wz_jets30_br;
   wz_chain.SetBranchAddress("jets30_p4", &wz_jets30, &wz_jets30_br);
 
@@ -284,7 +284,7 @@ void el_pt_looper()
                                     "wjets background electron momentum",
                                     100, 20, 200);
   TH1D* wjets_jets30_hist = new TH1D("wjets_jets30", "wjets amount of jets",
-                                     3, 3, 5);
+                                     8, 0, 32);
   TH1D* wjets_MjjL_hist = new TH1D("wjets_MjjL", "wjets leading MjjL",
                                    100, 20, 500);
   TH1D* wjets_met_pt_hist = new TH1D("wjets_met_pt", "wjets met momentum",
@@ -306,7 +306,7 @@ void el_pt_looper()
   wjets_chain.SetBranchAddress("evt_scale1fb", &wjets_evt_scale1fb,
                                &wjets_evt_scale1fb_br);
 
-  vector<Float_t>* wjets_jets30 = NULL;
+  vector<Int_t>*   wjets_jets30 = NULL;
   TBranch*         wjets_jets30_br;
   wjets_chain.SetBranchAddress("jets30_p4", &wjets_jets30, &wjets_jets30_br);
 
@@ -400,7 +400,7 @@ void el_pt_looper()
                                     "www signal electron momentum",
                                     100, 20, 200);
   TH1D* www_jets30_hist = new TH1D("www_jets30", "www amount of jets",
-                                     3, 3, 5);
+                                     8, 0, 32);
   TH1D* www_MjjL_hist = new TH1D("www_MjjL", "www leading MjjL",
                                    100, 20, 500);
   TH1D* www_met_pt_hist = new TH1D("www_met_pt", "www met momentum",
@@ -421,7 +421,7 @@ void el_pt_looper()
   www_chain.SetBranchAddress("evt_scale1fb", &www_evt_scale1fb,
                                &www_evt_scale1fb_br);
 
-  vector<Float_t>* www_jets30 = NULL;
+  vector<Int_t>*   www_jets30 = NULL;
   TBranch*         www_jets30_br;
   www_chain.SetBranchAddress("jets30_p4", &www_jets30, &www_jets30_br);
 
@@ -526,7 +526,7 @@ void el_pt_looper()
                                     "data electron momentum",
                                     100, 20, 200);
   TH1D* data_jets30_hist = new TH1D("data_jets30", "data amount of jets",
-                                     3, 3, 5);
+                                     8, 0, 32);
   TH1D* data_MjjL_hist = new TH1D("data_MjjL", "data leading MjjL",
                                    100, 20, 500);
   TH1D* data_met_pt_hist = new TH1D("data_met_pt", "data met momentum",
@@ -548,7 +548,7 @@ void el_pt_looper()
   data_chain.SetBranchAddress("evt_scale1fb", &data_evt_scale1fb,
                              &data_evt_scale1fb_br);
 
-  vector<Float_t>* data_jets30 = NULL;
+  vector<Int_t>* data_jets30 = NULL;
   TBranch*         data_jets30_br;
   data_chain.SetBranchAddress("jets30_p4", &data_jets30, &data_jets30_br);
 

@@ -30,32 +30,32 @@ void nb_plotter()
   data_input_file->cd();
   TH1D* h5 = NULL; data_input_file->GetObject("data_nb", h5);
 
-  // Options for histograms
-  TH1D* ttbar_hist = new TH1D("ttbar_hist", "ttbar_hist", 6, 0, 6);
+  // Options for histograms                                                               
+  TH1D* ttbar_hist = new TH1D("ttbar_hist", "ttbar_hist", 5, 0.5, 5.5);
   ttbar_hist->Add(h1);
   ttbar_hist->SetFillColor(2);
   ttbar_hist->SetLineWidth(2);
   ttbar_hist->SetLineColor(2);
 
-  TH1D* wjets_hist = new TH1D("wjets_hist", "wjets_hist", 6, 0, 6);
+  TH1D* wjets_hist = new TH1D("wjets_hist", "wjets_hist", 5, 0.5, 5.5);
   wjets_hist->Add(h2);
   wjets_hist->SetFillColor(3);
   wjets_hist->SetLineWidth(2);
   wjets_hist->SetLineColor(3);
 
-  TH1D* wz_hist    = new TH1D("wz_hist"   , "wz_hist"   , 6, 0, 6);
+  TH1D* wz_hist    = new TH1D("wz_hist"   , "wz_hist"   , 5, 0.5, 5.5);
   wz_hist->Add(h3);
   wz_hist->SetFillColor(4);
   wz_hist->SetLineWidth(2);
   wz_hist->SetLineColor(4);
 
-  TH1D* www_hist   = new TH1D("www_hist"  , "www_hist"  , 6, 0, 6);
+  TH1D* www_hist   = new TH1D("www_hist"  , "www_hist"  , 5, 0.5, 5.5);
   www_hist->Add(h4);
   www_hist->SetFillColor(5);
   www_hist->SetLineWidth(2);
   www_hist->SetLineColor(5);
 
-  TH1D* data_hist  = new TH1D("data_hist" , "data_hist" , 6, 0, 6);
+  TH1D* data_hist  = new TH1D("data_hist" , "data_hist" , 5, 0.5, 5.5);
   data_hist->Add(h5);
   data_hist->SetMarkerColor(1);
   data_hist->SetMarkerStyle(20);

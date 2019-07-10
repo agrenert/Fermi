@@ -6,8 +6,9 @@ looper.C: Opens all the various files in chains and writes histograms from ttbar
   - lep_pt[0]
   - lep_pt[1]
   - MjjL
-  - jets30 (size)
+  - nj30
   - nb
+  - n_lep (lep_pt->size())
  
  # Plotters
  plotter.h contains various includes as well as a helpfule function for use in various plotter files

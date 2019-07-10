@@ -20,7 +20,7 @@ void el_pt_looper()
   ttbar_chain.Add(directoryString + "ttbar_dilep_powheg_1.root"  );
   ttbar_chain.Add(directoryString + "ttbar_dilep_powheg_2.root"  );
 
-  // Sets all used branches to active status
+  // Sets all used branches to active status                                              
   ttbar_chain.SetBranchStatus("*", 0);
   ttbar_chain.SetBranchStatus("el_pt", 1);
   ttbar_chain.SetBranchStatus("evt_scale1fb", 1);
@@ -28,14 +28,14 @@ void el_pt_looper()
   ttbar_chain.SetBranchStatus("lep_pt", 1);
   ttbar_chain.SetBranchStatus("nb", 1);
   ttbar_chain.SetBranchStatus("MjjL", 1);
-  ttbar_chain.SetBranchStatus("jets30_p4", 1);
+  ttbar_chain.SetBranchStatus("nj30", 1);
 
-  // Creates histograms to store data from TChain
+  // Creates histograms to store data from TChain                                         
   TH1D* ttbar_el_pt_hist = new TH1D("ttbar_el_pt",
                                     "ttbar background electron momentum",
                                     100, 20, 200);
-  TH1D* ttbar_jets30_hist = new TH1D("ttbar_jets30", "ttbar amount of jets",
-                                     8, 0, 32);
+  TH1D* ttbar_nj30_hist = new TH1D("ttbar_nj30", "ttbar amount of jets",
+                                     9, 0.5, 9.5);
   TH1D* ttbar_MjjL_hist = new TH1D("ttbar_MjjL", "ttbar leading MjjL",
                                    100, 20, 500);
   TH1D* ttbar_met_pt_hist = new TH1D("ttbar_met_pt", "ttbar met momentum",
@@ -43,9 +43,11 @@ void el_pt_looper()
   TH1D* ttbar_lep_pt_hist_1 = new TH1D("ttbar_lep_pt_1", "ttbar lep momentum 1",
                                      100, 20, 200);
   TH1D* ttbar_lep_pt_hist_2 = new TH1D("ttbar_lep_pt_2", "ttbar lep momentum 2",
-                                     100, 20, 200);
+                                       100, 20, 200);
   TH1D* ttbar_nb_hist = new TH1D("ttbar_nb", "ttbar number of b jets",
-                                 6, 0, 6);
+                                 5, 0.5, 5.5);
+  TH1D* ttbar_n_lep_hist = new TH1D("ttbar_n_lep", "ttbar number of leptons",
+                                    2, 1.5, 3.5);
 
   // Sets all branch addresses and declares reference variables
   Float_t  ttbar_el_pt;
@@ -57,9 +59,9 @@ void el_pt_looper()
   ttbar_chain.SetBranchAddress("evt_scale1fb", &ttbar_evt_scale1fb,
                                &ttbar_evt_scale1fb_br);
 
-  vector<Int_t>* ttbar_jets30 = NULL;
-  TBranch*         ttbar_jets30_br;
-  ttbar_chain.SetBranchAddress("jets30_p4", &ttbar_jets30, &ttbar_jets30_br);
+  Int_t    ttbar_nj30;
+  TBranch* ttbar_nj30_br;
+  ttbar_chain.SetBranchAddress("nj30", &ttbar_nj30, &ttbar_nj30_br);
 
   Float_t  ttbar_MjjL;
   TBranch* ttbar_MjjL_br;
@@ -104,8 +106,11 @@ void el_pt_looper()
       if (ttbar_lep_pt->at(1) > 20 && ttbar_lep_pt->at(1) < 200)
         ttbar_lep_pt_hist_2->Fill(ttbar_lep_pt->at(1), 59 * ttbar_evt_scale1fb);
 
-      if (ttbar_jets30->size() > 0)
-        ttbar_jets30_hist->Fill(ttbar_jets30->size(), 59 * ttbar_evt_scale1fb);
+      if (ttbar_nj30 > 0)
+        ttbar_nj30_hist->Fill(ttbar_nj30, 59 * ttbar_evt_scale1fb);
+
+      if (ttbar_lep_pt->size() > 0)
+        ttbar_n_lep_hist->Fill(ttbar_lep_pt->size(), 59 * ttbar_evt_scale1fb);
     }
   // Displays number of events in histogram
   cout << "==========================" << endl;
@@ -121,7 +126,8 @@ void el_pt_looper()
   ttbar_met_pt_hist->Write();
   ttbar_lep_pt_hist_1->Write();
   ttbar_lep_pt_hist_2->Write();
-  ttbar_jets30_hist->Write();
+  ttbar_nj30_hist->Write();
+  ttbar_n_lep_hist->Write();
   ttbar_output_file->Write();
   ttbar_output_file->Close();
   //===============================================================================|
@@ -142,7 +148,7 @@ void el_pt_looper()
   wz_chain.Add(directoryString + "wz_3lv_amcatnlo_10.root");
   wz_chain.Add(directoryString + "wz_3lv_amcatnlo_11.root");
 
-  // Sets all used branches to active status
+  // Sets all used branches to active status                                              
   wz_chain.SetBranchStatus("*", 0);
   wz_chain.SetBranchStatus("el_pt", 1);
   wz_chain.SetBranchStatus("evt_scale1fb", 1);
@@ -150,14 +156,14 @@ void el_pt_looper()
   wz_chain.SetBranchStatus("lep_pt", 1);
   wz_chain.SetBranchStatus("nb", 1);
   wz_chain.SetBranchStatus("MjjL", 1);
-  wz_chain.SetBranchStatus("jets30_p4", 1);
+  wz_chain.SetBranchStatus("nj30", 1);
 
-  // Creates all histograms for wz TChain
+  // Creates all histograms for wz TChain                                                 
   TH1D* wz_el_pt_hist = new TH1D("wz_el_pt",
                                     "wz background electron momentum",
                                     100, 20, 200);
-  TH1D* wz_jets30_hist = new TH1D("wz_jets30", "wz amount of jets",
-                                     8, 0, 32);
+  TH1D* wz_nj30_hist = new TH1D("wz_nj30", "wz amount of jets",
+                                     9, 0.5, 9.5);
   TH1D* wz_MjjL_hist = new TH1D("wz_MjjL", "wz leading MjjL",
                                    100, 20, 500);
   TH1D* wz_met_pt_hist = new TH1D("wz_met_pt", "wz met momentum",
@@ -167,7 +173,9 @@ void el_pt_looper()
   TH1D* wz_lep_pt_hist_2 = new TH1D("wz_lep_pt_2", "wz lep momentum 2",
                                        100, 20, 200);
   TH1D* wz_nb_hist = new TH1D("wz_nb", "wz number of b jets",
-                                 6, 0, 6);
+                                 5, 0.5, 5.5);
+  TH1D* wz_n_lep_hist = new TH1D("wz_n_lep", "wz number of leptons",
+                                 2, 1.5, 3.5);
 
   // Sets branch addresses
   Float_t  wz_el_pt;
@@ -183,9 +191,9 @@ void el_pt_looper()
   wz_chain.SetBranchAddress("evt_scale1fb", &wz_evt_scale1fb,
                                &wz_evt_scale1fb_br);
 
-  vector<Int_t>* wz_jets30 = NULL;
-  TBranch*         wz_jets30_br;
-  wz_chain.SetBranchAddress("jets30_p4", &wz_jets30, &wz_jets30_br);
+  Int_t    wz_nj30;
+  TBranch* wz_nj30_br;
+  wz_chain.SetBranchAddress("nj30", &wz_nj30, &wz_nj30_br);
 
   Float_t  wz_MjjL;
   TBranch* wz_MjjL_br;
@@ -231,8 +239,11 @@ void el_pt_looper()
       if (wz_lep_pt->at(1) > 20 && wz_lep_pt->at(1) < 200)
         wz_lep_pt_hist_2->Fill(wz_lep_pt->at(1), 59 * wz_evt_scale1fb);
 
-      if (wz_jets30->size() > 0)
-        wz_jets30_hist->Fill(wz_jets30->size(), 59 * wz_evt_scale1fb);
+      if (wz_nj30 > 0)
+        wz_nj30_hist->Fill(wz_nj30, 59 * wz_evt_scale1fb);
+
+      if (wz_lep_pt->size() > 0)
+        wz_n_lep_hist->Fill(wz_lep_pt->size(), 59 * wz_evt_scale1fb);
 
     }
 
@@ -250,7 +261,8 @@ void el_pt_looper()
   wz_met_pt_hist->Write();
   wz_lep_pt_hist_1->Write();
   wz_lep_pt_hist_2->Write();
-  wz_jets30_hist->Write();
+  wz_nj30_hist->Write();
+  wz_n_lep_hist->Write();
   wz_output_file->Write();
   wz_output_file->Close();
   //===============================================================================|
@@ -269,7 +281,7 @@ void el_pt_looper()
   wjets_chain.Add(directoryString + "wjets_ht800_madgraph_1.root" );
   wjets_chain.Add(directoryString + "wjets_incl_madgraph_1.root"  );
 
-  // Sets used branches to active status
+  // Sets used branches to active status                                                  
   wjets_chain.SetBranchStatus("*", 0);
   wjets_chain.SetBranchStatus("el_pt", 1);
   wjets_chain.SetBranchStatus("evt_scale1fb", 1);
@@ -277,14 +289,14 @@ void el_pt_looper()
   wjets_chain.SetBranchStatus("lep_pt", 1);
   wjets_chain.SetBranchStatus("nb", 1);
   wjets_chain.SetBranchStatus("MjjL", 1);
-  wjets_chain.SetBranchStatus("jets30_p4", 1);
+  wjets_chain.SetBranchStatus("nj30", 1);
 
-  // Creates all histograms for wjets TChain
+  // Creates all histograms for wjets TChain                                              
   TH1D* wjets_el_pt_hist = new TH1D("wjets_el_pt",
                                     "wjets background electron momentum",
                                     100, 20, 200);
-  TH1D* wjets_jets30_hist = new TH1D("wjets_jets30", "wjets amount of jets",
-                                     8, 0, 32);
+  TH1D* wjets_nj30_hist = new TH1D("wjets_nj30", "wjets amount of jets",
+                                     9, 0.5, 9.5);
   TH1D* wjets_MjjL_hist = new TH1D("wjets_MjjL", "wjets leading MjjL",
                                    100, 20, 500);
   TH1D* wjets_met_pt_hist = new TH1D("wjets_met_pt", "wjets met momentum",
@@ -294,7 +306,9 @@ void el_pt_looper()
   TH1D* wjets_lep_pt_hist_2 = new TH1D("wjets_lep_pt_2", "wjets lep momentum 2",
                                        100, 20, 200);
   TH1D* wjets_nb_hist = new TH1D("wjets_nb", "wjets number of b jets",
-                                 6, 0, 6);
+                                 5, 0.5, 5.5);
+  TH1D* wjets_n_lep_hist = new TH1D("wjets_n_lep", "wjets number of leptons",
+                                    2, 1.5, 3.5);
 
   // Sets branch addresses
   Float_t  wjets_el_pt;
@@ -306,9 +320,9 @@ void el_pt_looper()
   wjets_chain.SetBranchAddress("evt_scale1fb", &wjets_evt_scale1fb,
                                &wjets_evt_scale1fb_br);
 
-  vector<Int_t>*   wjets_jets30 = NULL;
-  TBranch*         wjets_jets30_br;
-  wjets_chain.SetBranchAddress("jets30_p4", &wjets_jets30, &wjets_jets30_br);
+  Int_t    wjets_nj30;
+  TBranch* wjets_nj30_br;
+  wjets_chain.SetBranchAddress("nj30", &wjets_nj30, &wjets_nj30_br);
 
   Float_t  wjets_MjjL;
   TBranch* wjets_MjjL_br;
@@ -354,8 +368,11 @@ void el_pt_looper()
       if (wjets_lep_pt->at(1) > 20 && wjets_lep_pt->at(1) < 200)
         wjets_lep_pt_hist_2->Fill(wjets_lep_pt->at(1), 59 * wjets_evt_scale1fb);
 
-      if (wjets_jets30->size() > 0)
-        wjets_jets30_hist->Fill(wjets_jets30->size(), 59 * wjets_evt_scale1fb);
+      if (wjets_nj30 > 0)
+        wjets_nj30_hist->Fill(wjets_nj30, 59 * wjets_evt_scale1fb);
+
+      if (wjets_lep_pt->size() > 0)
+        wjets_n_lep_hist->Fill(wjets_lep_pt->size(), 59 * wjets_evt_scale1fb);
   
     }
 
@@ -373,7 +390,8 @@ void el_pt_looper()
   wjets_met_pt_hist->Write();
   wjets_lep_pt_hist_1->Write();
   wjets_lep_pt_hist_2->Write();
-  wjets_jets30_hist->Write();
+  wjets_nj30_hist->Write();
+  wjets_n_lep_hist->Write();
   wjets_output_file->Write();
   wjets_output_file->Close();
   //===============================================================================|
@@ -393,14 +411,14 @@ void el_pt_looper()
   www_chain.SetBranchStatus("lep_pt", 1);
   www_chain.SetBranchStatus("nb", 1);
   www_chain.SetBranchStatus("MjjL", 1);
-  www_chain.SetBranchStatus("jets30_p4", 1);
+  www_chain.SetBranchStatus("nj30", 1);
 
-  // Creates all histograms for www TChain
+  // Creates all histograms for www TChain                                                
   TH1D* www_el_pt_hist = new TH1D("www_el_pt",
                                     "www signal electron momentum",
                                     100, 20, 200);
-  TH1D* www_jets30_hist = new TH1D("www_jets30", "www amount of jets",
-                                     8, 0, 32);
+  TH1D* www_nj30_hist = new TH1D("www_nj30", "www amount of jets",
+                                 9, 0.5, 9.5);
   TH1D* www_MjjL_hist = new TH1D("www_MjjL", "www leading MjjL",
                                    100, 20, 500);
   TH1D* www_met_pt_hist = new TH1D("www_met_pt", "www met momentum",
@@ -410,7 +428,9 @@ void el_pt_looper()
   TH1D* www_lep_pt_hist_2 = new TH1D("www_lep_pt_2", "www lep momentum 2",
                                        100, 20, 200);
   TH1D* www_nb_hist = new TH1D("www_nb", "www number of b jets",
-                                 6, 0, 6);
+                                 5, 0.5, 5.5);
+  TH1D* www_n_lep_hist = new TH1D("www_n_lep", "www number of leptons",
+                                  2, 1.5, 3.5);
   // Sets all branch addresses
   Float_t  www_el_pt;
   TBranch* www_el_pt_br;
@@ -421,9 +441,9 @@ void el_pt_looper()
   www_chain.SetBranchAddress("evt_scale1fb", &www_evt_scale1fb,
                                &www_evt_scale1fb_br);
 
-  vector<Int_t>*   www_jets30 = NULL;
-  TBranch*         www_jets30_br;
-  www_chain.SetBranchAddress("jets30_p4", &www_jets30, &www_jets30_br);
+  Int_t    www_nj30;
+  TBranch* www_nj30_br;
+  www_chain.SetBranchAddress("nj30", &www_nj30, &www_nj30_br);
 
   Float_t  www_MjjL;
   TBranch* www_MjjL_br;
@@ -469,8 +489,11 @@ void el_pt_looper()
       if (www_lep_pt->at(1) > 20 && www_lep_pt->at(1) < 200)
         www_lep_pt_hist_2->Fill(www_lep_pt->at(1), 59 * www_evt_scale1fb);
 
-      if (www_jets30->size() > 0)
-        www_jets30_hist->Fill(www_jets30->size(), 59 * www_evt_scale1fb);
+      if (www_nj30 > 0)
+        www_nj30_hist->Fill(www_nj30, 59 * www_evt_scale1fb);
+
+      if (www_lep_pt->size() > 0)
+        www_n_lep_hist->Fill(www_lep_pt->size(), 59 * www_evt_scale1fb);
 
     }
 
@@ -488,7 +511,8 @@ void el_pt_looper()
   www_met_pt_hist->Write();
   www_lep_pt_hist_1->Write();
   www_lep_pt_hist_2->Write();
-  www_jets30_hist->Write();
+  www_nj30_hist->Write();
+  www_n_lep_hist->Write();
   www_output_file->Write();
   www_output_file->Close();
   //===============================================================================|
@@ -519,14 +543,14 @@ void el_pt_looper()
   data_chain.SetBranchStatus("lep_pt", 1);
   data_chain.SetBranchStatus("nb", 1);
   data_chain.SetBranchStatus("MjjL", 1);
-  data_chain.SetBranchStatus("jets30_p4", 1);
+  data_chain.SetBranchStatus("nj30", 1);
 
-  // Creates histograms data TChain
+  // Creates histograms data TChain                                                       
   TH1D* data_el_pt_hist = new TH1D("data_el_pt",
                                     "data electron momentum",
                                     100, 20, 200);
-  TH1D* data_jets30_hist = new TH1D("data_jets30", "data amount of jets",
-                                     8, 0, 32);
+  TH1D* data_nj30_hist = new TH1D("data_nj30", "data amount of jets",
+                                     9, 0.5, 9.5);
   TH1D* data_MjjL_hist = new TH1D("data_MjjL", "data leading MjjL",
                                    100, 20, 500);
   TH1D* data_met_pt_hist = new TH1D("data_met_pt", "data met momentum",
@@ -536,7 +560,9 @@ void el_pt_looper()
   TH1D* data_lep_pt_hist_2 = new TH1D("data_lep_pt_2", "data lep momentum 2",
                                        100, 20, 200);
   TH1D* data_nb_hist = new TH1D("data_nb", "data number of b jets",
-                                 6, 0, 6);
+                                 5, 0.5, 5.5);
+  TH1D* data_n_lep_hist = new TH1D("data_n_lep", "data number of leptons",
+                                   2, 1.5, 3.5);
 
   // Sets all branch addresses
   Float_t  data_el_pt;
@@ -548,9 +574,9 @@ void el_pt_looper()
   data_chain.SetBranchAddress("evt_scale1fb", &data_evt_scale1fb,
                              &data_evt_scale1fb_br);
 
-  vector<Int_t>* data_jets30 = NULL;
-  TBranch*         data_jets30_br;
-  data_chain.SetBranchAddress("jets30_p4", &data_jets30, &data_jets30_br);
+  Int_t    data_nj30;
+  TBranch* data_nj30_br;
+  data_chain.SetBranchAddress("nj30", &data_nj30, &data_nj30_br);
 
   Float_t  data_MjjL;
   TBranch* data_MjjL_br;
@@ -596,8 +622,11 @@ void el_pt_looper()
       if (data_lep_pt->at(1) > 20 && data_lep_pt->at(1) < 200)
         data_lep_pt_hist_2->Fill(data_lep_pt->at(1));
 
-      if (data_jets30->size() > 0)
-        data_jets30_hist->Fill(data_jets30->size());
+      if (data_nj30 > 0)
+        data_nj30_hist->Fill(data_nj30);
+
+      if (data_lep_pt->size() > 0)
+        data_n_lep_hist->Fill(data_lep_pt->size());
     }
 
   // Displays number of events in histogram 
@@ -614,7 +643,8 @@ void el_pt_looper()
   data_met_pt_hist->Write();
   data_lep_pt_hist_1->Write();
   data_lep_pt_hist_2->Write();
-  data_jets30_hist->Write();
+  data_nj30_hist->Write();
+  data_n_lep_hist->Write();
   data_output_file->Write();
   data_output_file->Close();
   //===============================================================================|

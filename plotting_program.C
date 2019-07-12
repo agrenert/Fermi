@@ -41,3 +41,7 @@ void plotting_program()
         }
       else
         {
+          cout << "Error: Invalid Input..." << endl;
+        }
+    }
+}

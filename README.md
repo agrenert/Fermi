@@ -1,15 +1,16 @@
-# Looper
-looper.h has various includes as well as a few functions for use in looper.C.
-looper.C: Opens all the various files in chains and writes histograms from ttbar, wz, wjets, www, and data each to their own file. The different distributions used in the looper are:
-  - el_pt
-  - met_pt
-  - lep_pt[0]
-  - lep_pt[1]
-  - MjjL
-  - nj30
-  - nb
-  - n_lep (lep_pt->size())
+# auto_looper.C
+ This contains the function "processChain" which is called in chain_looper.C
+ This function loops through all the desired distributions defined in the function of the chain defined in the parameters.
  
- # Plotters
- plotter.h contains various includes as well as a helpfule function for use in various plotter files
- each plotter file plots a different distribution stack plot for all the proccesses, corresponds to name of file.
+# chain_looper.C
+  This file creates all the chains by reading files of the various desired processes, then calls function in auto_looper.C to create output histograms and files
+  
+# plotting.C
+  This file contains 2 functions. "plot" is used in plotting_program.C to plot any user inputed distribution that exists in the list of distributions defined in auto_looper.C, plotting options are defined in the plot function
+  
+# plotting_program.C
+This file is a User Interface for plotting the various distributions of the different proccesses.
+
+# universal.h
+Contains all the includes as well as a usefule function for use in the other files,
+All other files include this file
